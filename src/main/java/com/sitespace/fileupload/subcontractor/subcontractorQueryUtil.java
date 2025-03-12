@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class subcontractorQueryUtil {
 
-	public static final String insert_asset = " INSERT INTO asset_master (asset_project, asset_title, asset_location,asset_status, asset_poc, maintanence_startdt, maintanence_enddt, usage_instructions,created_dt)  \r\n"
-			+ "VALUES (?,?,?,?,?,?,?,?,now())";
+	public static final String insert_subContractorsReg = "INSERT INTO sub_contractors (contractor_project,contractor_name, contractor_company,contractor_trade,contractor_email,contractor_phone,created_by,created_dt) "
+			+ "VALUES ('{?}',?,?,?,?,?,'self',NOW())";
 	
 	public static final String Get_emp_id = "SELECT COALESCE(exp_id) AS expId FROM new.experience_info WHERE talent_id = ?";
 	
@@ -44,9 +44,11 @@ public class subcontractorQueryUtil {
 			
 		return query;
 	}
-	
+		
 	
 	public static String Delete_User_Account ="delete from asset_master where asset_key = ? ";
+	
+	public static String checkUserExist = "select count(*) from sub_contractors where contractor_email =?";
 	
 	public static final String get_profile_images = "Select nu.profile_img as uploadImg,prev_prof_img1 as uploadImg1,prev_prof_img2 as uploadImg2 from new.user_details nu  \r\n"
 			+ "inner join new.ind_profile_info ip on ip.talent_id = nu.talent_id\r\n"

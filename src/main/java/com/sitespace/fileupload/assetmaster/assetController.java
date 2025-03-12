@@ -54,11 +54,11 @@ public class assetController {
 	//connection List
 	
 	@GetMapping("/getAssetList")
-	public @ResponseBody assetResultBean assetList(@RequestParam("currentUserId")String currentUserId) {
+	public @ResponseBody assetResultBean assetList(@RequestParam("assetProject")String assetProject) {
 		assetResultBean assetResultBean = new assetResultBean();
 
 		try {
-			assetResultBean = assetService.assetList(currentUserId);
+			assetResultBean = assetService.assetList(assetProject);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

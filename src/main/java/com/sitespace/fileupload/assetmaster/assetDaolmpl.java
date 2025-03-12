@@ -80,7 +80,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(assetDaolmpl.class)
 				e.printStackTrace();
 				String[] err = e.getMessage().split(": ERROR:");
 				assetResultBean.setSuccess(false);
-				assetResultBean.setMessage("Error Please Try after Sometime ");
+				assetResultBean.setMessage("Error please contact admin ");
 								 
 			}
 			return assetResultBean;	
@@ -114,7 +114,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(assetDaolmpl.class)
 			  
 			  } catch (Exception e) {
 				  assetResultBean.setSuccess(false);
-				  assetResultBean.setMessage("Error Please Try after Sometime ");
+				  assetResultBean.setMessage("Error please contact admin");
 					e.printStackTrace();
 			  }
 			  
@@ -192,7 +192,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(assetDaolmpl.class)
 				} catch (Exception e) {
 					LOGGER.error("Error in Account delete", e);
 					mobileResultBean.setSuccess(false);
-					mobileResultBean.setMessage("Error Please Try after Sometime ");
+					mobileResultBean.setMessage("Error please contact admin");
 				}
 
 				// TODO Auto-generated method stub

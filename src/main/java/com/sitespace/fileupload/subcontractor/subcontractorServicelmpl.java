@@ -22,9 +22,9 @@ public class subcontractorServicelmpl  implements subcontractorService {
 
 
 			@Override
-			public subcontractorResultBean saveAsset(subcontractorBean obj) {
+			public subcontractorResultBean subcontractorRegistration(subcontractorBean obj) {
 				// TODO Auto-generated method stub
-				return assetDao.saveAsset(obj);
+				return assetDao.subcontractorRegistration(obj);
 			}
 
 

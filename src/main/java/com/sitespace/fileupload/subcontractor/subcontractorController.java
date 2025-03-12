@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 //import sun.misc.BASE64Decoder;
 @Api(tags="Subcontractor Operation", description="Manages Asset Operation")
 @RestController
-@RequestMapping("/api/auth/Asset")
+@RequestMapping("/api/subContractor")
 public class subcontractorController {
 	
 	@Autowired
@@ -38,22 +38,22 @@ public class subcontractorController {
 	@ApiOperation(value = "subcontractor Controller")
 
 	
-//	@PostMapping(value = "/saveAsset")
-//	public @ResponseBody  subcontractorResultBean saveAsset(@RequestBody subcontractorBean obj) throws Exception{
-//		subcontractorResultBean assetResultBean = new subcontractorResultBean();
-//		try {
-//
-//			assetResultBean = assetService.saveAsset(obj);
-//
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return assetResultBean;
-//
-//	}
-//	
+	@PostMapping(value = "/subcontractorRegistration")
+	public @ResponseBody  subcontractorResultBean subcontractorRegistration(@RequestBody subcontractorBean obj) throws Exception{
+		subcontractorResultBean assetResultBean = new subcontractorResultBean();
+		try {
+
+			assetResultBean = assetService.subcontractorRegistration(obj);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return assetResultBean;
+
+	}
+	
 	
 	
 	
@@ -131,7 +131,7 @@ public class subcontractorController {
 	
 	
 	
-	@RequestMapping(value = "/belstarIntimationMail")
+	@RequestMapping(value = "/subcontractorRegMail")
 	public @ResponseBody subcontractorResultBean verificationSuiteIntimationMail(@RequestBody subcontractorBean regobj, HttpServletRequest request) {
 		subcontractorResultBean objbranchResultBean = new subcontractorResultBean();
 	    try {

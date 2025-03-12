@@ -29,7 +29,7 @@ public class assetQueryUtil {
 
 	
 
-	public static String Asset_list(String currentUserId) {
+	public static String Asset_list(String assetProject) {
 		String query="SELECT \r\n"
 				+ "    asset_project AS assetProject,asset_key as assetKey, \r\n"
 				+ "    asset_title AS assetTitle, \r\n"
@@ -39,7 +39,7 @@ public class assetQueryUtil {
 				+ "    maintanence_startdt AS maintanenceStartdt, \r\n"
 				+ "    maintanence_enddt AS maintanenceEnddt, \r\n"
 				+ "    usage_instructions AS usageInstructions\r\n"
-				+ "FROM asset_master;\r\n"
+				+ "FROM asset_master where asset_project = '"+assetProject+"' ;\r\n"
 				+ "";
 			
 		return query;

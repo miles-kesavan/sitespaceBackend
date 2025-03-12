@@ -11,7 +11,7 @@ public interface subcontractorDao {
 
 	public subcontractorResultBean updateAsset(subcontractorBean obj);
 
-	public subcontractorResultBean saveAsset(subcontractorBean obj);
+	public subcontractorResultBean subcontractorRegistration(subcontractorBean obj);
 	
 	public subcontractorResultBean editAssetdetails(String currentUserId);
 

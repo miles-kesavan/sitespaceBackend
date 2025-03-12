@@ -15,37 +15,50 @@ public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	private String userId;
 
 	private String username;
 
 	private String email;
+	
+	private Integer creditPoint;
+	
+	private String role;
+
+
+	public Integer getCreditPoint() {
+		return creditPoint;
+	}
+
+	public void setCreditPoint(Integer creditPoint) {
+		this.creditPoint = creditPoint;
+	}
 
 	@JsonIgnore
 	private String password;
 
-	private Collection<? extends GrantedAuthority> authorities;
+	private static Collection<? extends GrantedAuthority> authorities;
 
-	public UserDetailsImpl(Long id, String username, String email, String password,
-			Collection<? extends GrantedAuthority> authorities) {
+	public UserDetailsImpl(Long id,String userId, String username, String email, String password,
+			Collection<? extends GrantedAuthority> authorities,Integer creditPoint,String role) {
 		this.id = id;
+		this.userId = userId;
 		this.username = username;
 		this.email = email;
 		this.password = password;
 		this.authorities = authorities;
+		this.creditPoint = creditPoint;
+		this.role = role ;
+
 	}
 
 	public static UserDetailsImpl build(User user) {
-		List<GrantedAuthority> authorities = user.getRoles().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
-				.collect(Collectors.toList());
-
-		return new UserDetailsImpl(
-				user.getId(), 
-				user.getUsername(), 
-				user.getEmail(),
-				user.getPassword(), 
-				authorities);
-	}
+		
+		  
+		  return new UserDetailsImpl( user.getId(),user.getUserId(), user.getUsername(),
+		  user.getEmail(), user.getPassword(), authorities,user.getCreditpoint(),user.getRole());
+		 }
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -63,6 +76,10 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public String getPassword() {
 		return password;
+	}
+	
+	public String getUserId() {
+		return userId;
 	}
 
 	@Override
@@ -99,4 +116,26 @@ public class UserDetailsImpl implements UserDetails {
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
+	
+	public UserDetailsImpl(String userId, String email) {
+		this.userId = userId;
+		this.email = email;
+	}
+	
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+
 }

@@ -16,7 +16,7 @@ public class EmailService {
 			Email email = new Email();
 			StringBuffer sb = new StringBuffer();
 			String path = "";
-			email.setFromEmailAddress("jayakumar@techinfy.in");
+			email.setFromEmailAddress("kesavan@talentchek.in");
 			String toMailAddress = mailId;
 			String[] toEmailIds = toMailAddress.split(",");
 			email.setToEmailAddress(toEmailIds);

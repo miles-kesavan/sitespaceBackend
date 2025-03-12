@@ -47,17 +47,43 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 	 
 	
 			@Override
-			public subcontractorResultBean saveAsset(subcontractorBean obj) {
+			public subcontractorResultBean subcontractorRegistration(subcontractorBean obj) {
 				
 				subcontractorResultBean assetResultBean = new subcontractorResultBean();
 				try {
 					JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
 					
 					
-				    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-//				    Date maintanenceStartDate = new Date(sdf.parse(obj.getMaintanenceStartdt()).getTime());
-//				    Date maintanenceEndDate = new Date(sdf.parse(obj.getMaintanenceEnddt()).getTime());
 					
+					
+				    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				    
+				    
+				    Integer checkUserExist=jdbcTemplate.queryForObject(subcontractorQueryUtil.checkUserExist, 
+							new Object[] {obj.getEmailId()},(Integer.class));  
+				    
+				    
+				    if(checkUserExist == 0) {
+				    	
+//				    	int count = jdbcTemplate.update(
+//							    subcontractorQueryUtil.insert_asset, 
+//							    new Object[] {
+//							        obj.getAssetProject(), 
+//							        obj.getAssetTitle(), 
+//							        obj.getAssetLocation(),
+//							        obj.getAssetStatus(), 
+//							        obj.getAssetPoc(), 
+//							        maintanenceStartDate, 
+//							        maintanenceEndDate, 
+//							        obj.getUsageInstructions()
+//							    }
+//							);
+//						 if(count !=0 ) {
+//							 assetResultBean.setSuccess(true);
+//							 assetResultBean.setMessage("Asset Saved SuccessFully ");
+//						 }
+				    }
+	
 //					int count = jdbcTemplate.update(
 //						    subcontractorQueryUtil.insert_asset, 
 //						    new Object[] {

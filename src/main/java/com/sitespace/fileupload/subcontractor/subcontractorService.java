@@ -12,7 +12,7 @@ public interface subcontractorService {
 	
 
 
-	public subcontractorResultBean saveAsset(subcontractorBean obj);
+	public subcontractorResultBean subcontractorRegistration(subcontractorBean obj);
 	
 	public subcontractorResultBean updateAsset(subcontractorBean obj);
 
