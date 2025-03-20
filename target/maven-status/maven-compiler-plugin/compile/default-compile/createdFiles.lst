@@ -10,6 +10,7 @@ com\sitespace\fileupload\userMaster\userMasterQueryUtil.class
 com\sitespace\fileupload\usermanagement\RoleRepository.class
 com\sitespace\fileupload\usermanagement\UserDetailsServiceImpl.class
 com\sitespace\fileupload\assetmaster\assetController.class
+com\sitespace\fileupload\subcontractor\subcontractorController$1.class
 com\sitespace\fileupload\slotBooking\slotBookingBean.class
 com\sitespace\fileupload\subcontractor\subcontractorDaolmpl.class
 com\sitespace\common\services\CommonServicesDao.class

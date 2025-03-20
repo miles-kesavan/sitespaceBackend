@@ -16,7 +16,7 @@ public interface slotBookingService {
 	
 	public slotBookingResultBean updateslotBooking(slotBookingBean obj);
 
-	public slotBookingResultBean getslotBookingList();
+	public slotBookingResultBean getslotBookingList(String userId,String projectId);
 	
 	public slotBookingResultBean editslotBookingdetails(String currentUserId);
 	

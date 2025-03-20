@@ -54,11 +54,11 @@ public class slotBookingController {
 	//connection List
 	
 	@GetMapping("/getslotBookingList")
-	public @ResponseBody slotBookingResultBean getslotBookingList() {
+	public @ResponseBody slotBookingResultBean getslotBookingList(@RequestParam ("userId") String userId,@RequestParam("projectId")String projectId) {
 		slotBookingResultBean assetResultBean = new slotBookingResultBean();
 
 		try {
-			assetResultBean = slotBookingService.getslotBookingList();
+			assetResultBean = slotBookingService.getslotBookingList(userId,projectId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -164,7 +164,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(slotBookingDaolmpl.
 			
 			// connectionList
 			  @Override
-			  public slotBookingResultBean getslotBookingList() {
+			  public slotBookingResultBean getslotBookingList(String userId,String projectId) {
 			      List<slotBookingBean> bookingList = new ArrayList<>();
 			      slotBookingResultBean bookingResultBean = new slotBookingResultBean();
 
@@ -173,7 +173,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(slotBookingDaolmpl.
 
 			          // Execute query and get list of maps
 			          List<Map<String, Object>> rows = jdbcTemplate.queryForList(
-			              slotBookingQueryUtil.SLOT_BOOKING_LIST(), 
+			              slotBookingQueryUtil.SLOT_BOOKING_LIST(userId,projectId), 
 			              new Object[]{}
 			          );
 

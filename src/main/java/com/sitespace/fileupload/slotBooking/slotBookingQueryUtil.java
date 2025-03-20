@@ -61,21 +61,27 @@ public class slotBookingQueryUtil {
 
 	
 
-	public static String SLOT_BOOKING_LIST() {
+	public static String SLOT_BOOKING_LIST(String userId,String projectId) {
 		String query="SELECT \r\n"
-				+ "    booking_key,\r\n"
-				+ "    booking_project,\r\n"
-				+ "    booking_title,\r\n"
-				+ "    booking_for,\r\n"
-				+ "    booked_assets, -- This is an array (VARCHAR[] in PostgreSQL or comma-separated string)\r\n"
-				+ "    booking_status,\r\n"
-				+ "    TO_CHAR(booking_timedt, 'YYYY-MM-DD HH24:MI:SS') AS booking_timedt, -- Convert to string format\r\n"
-				+ "    booking_duration_mins,\r\n"
-				+ "    booking_description,\r\n"
-				+ "    booking_notes,\r\n"
-				+ "    booking_created_by\r\n"
-				+ "FROM \r\n"
-				+ "    slot_booking";
+				+ "    sb.booking_key,\r\n"
+				+ "    sb.booking_project,\r\n"
+				+ "    CONCAT(pm.project_key, ' - ', pm.project_title) AS booking_title,  -- Concatenated project details\r\n"
+				+ "    sb.booking_for,\r\n"
+				+ "    ARRAY_AGG(ba.asset_key || ' - ' || am.asset_title) AS booked_assets,  -- Format booked_assets\r\n"
+				+ "    sb.booking_status,\r\n"
+				+ "    TO_CHAR(sb.booking_timedt, 'YYYY-MM-DD HH24:MI:SS') AS booking_timedt,\r\n"
+				+ "    sb.booking_duration_mins,\r\n"
+				+ "    sb.booking_description,\r\n"
+				+ "    sb.booking_notes,\r\n"
+				+ "    sb.booking_created_by\r\n"
+				+ "FROM slot_booking sb\r\n"
+				+ "LEFT JOIN project_master pm ON sb.booking_project = pm.project_key\r\n"
+				+ "LEFT JOIN LATERAL unnest(sb.booked_assets) AS ba(asset_key) ON TRUE\r\n"
+				+ "LEFT JOIN asset_master am ON ba.asset_key = am.asset_key where sb.booking_created_by ='"+userId+"' and sb.booking_project = '"+projectId+"'\r\n"
+				+ "GROUP BY sb.booking_key, sb.booking_project, pm.project_key, pm.project_title, \r\n"
+				+ "         sb.booking_title, sb.booking_for, sb.booking_status, \r\n"
+				+ "         sb.booking_timedt, sb.booking_duration_mins, \r\n"
+				+ "         sb.booking_description, sb.booking_notes, sb.booking_created_by;";
 			
 		return query;
 	}

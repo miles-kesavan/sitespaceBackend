@@ -17,6 +17,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Properties;
 import java.io.StringWriter;
+import java.sql.Array;
+import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -49,67 +51,52 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 			@Override
 			public subcontractorResultBean subcontractorRegistration(subcontractorBean obj) {
 				
-				subcontractorResultBean assetResultBean = new subcontractorResultBean();
+				subcontractorResultBean subcontractorResultBean = new subcontractorResultBean();
 				try {
 					JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
 					
+			        Connection conn = jdbcTemplate.getDataSource().getConnection();
+
 					
-					
-					
-				    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					   Array projectArray = conn.createArrayOf("VARCHAR", obj.getContractorProject().toArray());
+
 				    
 				    
 				    Integer checkUserExist=jdbcTemplate.queryForObject(subcontractorQueryUtil.checkUserExist, 
-							new Object[] {obj.getEmailId()},(Integer.class));  
+							new Object[] {obj.getContractorEmail()},(Integer.class));  
 				    
 				    
 				    if(checkUserExist == 0) {
 				    	
-//				    	int count = jdbcTemplate.update(
-//							    subcontractorQueryUtil.insert_asset, 
-//							    new Object[] {
-//							        obj.getAssetProject(), 
-//							        obj.getAssetTitle(), 
-//							        obj.getAssetLocation(),
-//							        obj.getAssetStatus(), 
-//							        obj.getAssetPoc(), 
-//							        maintanenceStartDate, 
-//							        maintanenceEndDate, 
-//							        obj.getUsageInstructions()
-//							    }
-//							);
-//						 if(count !=0 ) {
-//							 assetResultBean.setSuccess(true);
-//							 assetResultBean.setMessage("Asset Saved SuccessFully ");
-//						 }
+				    	jdbcTemplate.update(subcontractorQueryUtil.insert_subContractorsReg, projectArray, obj.getContractorName(), obj.getContractorCompany(),
+				    			obj.getContractorTrade(), obj.getContractorEmail(), 
+				    			obj.getContractorPhone(), obj.getCreatedBy());
+				    	
+				    	subcontractorResultBean.setSuccess(true);
+				    	subcontractorResultBean.setMessage("Contractor added successfully!");
+				    }
+				    
+				    else {
+				    	
+				    	String updateSql = "UPDATE sub_contractors SET contractor_project = ? WHERE contractor_email = ? OR contractor_phone = ?";
+			            jdbcTemplate.update(updateSql, projectArray, obj.getContractorEmail(), obj.getContractorPhone());
+			            
+			            subcontractorResultBean.setSuccess(true);
+				    	subcontractorResultBean.setMessage("Contractor project updated successfully!");
+
 				    }
 	
-//					int count = jdbcTemplate.update(
-//						    subcontractorQueryUtil.insert_asset, 
-//						    new Object[] {
-//						        obj.getAssetProject(), 
-//						        obj.getAssetTitle(), 
-//						        obj.getAssetLocation(),
-//						        obj.getAssetStatus(), 
-//						        obj.getAssetPoc(), 
-//						        maintanenceStartDate, 
-//						        maintanenceEndDate, 
-//						        obj.getUsageInstructions()
-//						    }
-//						);
-//					 if(count !=0 ) {
-//						 assetResultBean.setSuccess(true);
-//						 assetResultBean.setMessage("Asset Saved SuccessFully ");
-//					 }
+		
+
 				
 			}catch (Exception e ) {
 				e.printStackTrace();
 				String[] err = e.getMessage().split(": ERROR:");
-				assetResultBean.setSuccess(false);
-				assetResultBean.setMessage("Error Please Try after Sometime ");
+				subcontractorResultBean.setSuccess(false);
+				subcontractorResultBean.setMessage("Error Please Try after Sometime ");
 								 
 			}
-			return assetResultBean;	
+			return subcontractorResultBean;	
 		  }
 
 

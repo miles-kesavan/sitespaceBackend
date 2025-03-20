@@ -1,32 +1,25 @@
 package com.sitespace.fileupload.subcontractor;
 
-
-
+import java.util.List;
 
 public class subcontractorBean {
 
 	private String name;
 	private String emailId;
 	
-	private String contractorProject;
+    private List<String> contractorProject;  // Array of project IDs
+
+	private String contractorProjectId;
 	private String contractorName;
 	private String contractorCompany;
 	private String contractorTrade;
 	private String contractorEmail;
 	private String contractorPhone;
+	private String createdBy;
 	
 	
 	
-	
-	
-	
-	
-	public String getContractorProject() {
-		return contractorProject;
-	}
-	public void setContractorProject(String contractorProject) {
-		this.contractorProject = contractorProject;
-	}
+
 	public String getContractorName() {
 		return contractorName;
 	}
@@ -68,6 +61,24 @@ public class subcontractorBean {
 	}
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
+	}
+	public String getContractorProjectId() {
+		return contractorProjectId;
+	}
+	public void setContractorProjectId(String contractorProjectId) {
+		this.contractorProjectId = contractorProjectId;
+	}
+	public String getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+	public List<String> getContractorProject() {
+		return contractorProject;
+	}
+	public void setContractorProject(List<String> contractorProject) {
+		this.contractorProject = contractorProject;
 	}  
 
 	

@@ -47,9 +47,9 @@ public class slotBookingServicelmpl  implements slotBookingService {
 
 
 			@Override
-			public slotBookingResultBean getslotBookingList() {
+			public slotBookingResultBean getslotBookingList(String userId,String projectId) {
 				// TODO Auto-generated method stub
-				return saveslotBookingDao.getslotBookingList();
+				return saveslotBookingDao.getslotBookingList(userId,projectId);
 			}
 			
 			

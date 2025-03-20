@@ -15,7 +15,7 @@ public interface slotBookingDao {
 	
 	public slotBookingResultBean editslotBookingdetails(String currentUserId);
 
-	public slotBookingResultBean getslotBookingList();
+	public slotBookingResultBean getslotBookingList(String userId,String projectId);
 	
 	public slotBookingResultBean deleteslotBooking(slotBookingBean delete);
 
