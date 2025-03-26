@@ -58,7 +58,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(slotBookingDaolmpl.
 	    try {
 	        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		    Date bookingTimeDt = new Date(sdf.parse(obj.getBookingTimeDt()).getTime());
 
 	        int count = jdbcTemplate.update(

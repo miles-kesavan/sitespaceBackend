@@ -140,11 +140,11 @@ public class subcontractorController {
 	public @ResponseBody subcontractorResultBean verificationSuiteIntimationMail(@RequestBody subcontractorBean regobj) {
 		subcontractorResultBean objbranchResultBean = new subcontractorResultBean();
 
-		        final String username = "smtp@mailtrap.io"; // Mailtrap SMTP username
-		        final String password = "9aec33cb21d9723d154aa45933bee658"; // Mailtrap SMTP password
+		        final String username = "88eaa1001@smtp-brevo.com"; // Mailtrap SMTP username
+		        final String password = "52PIxEyCGLk6sm7J"; // Mailtrap SMTP password
 
 		        Properties props = new Properties();
-		        props.put("mail.smtp.host", "live.smtp.mailtrap.io"); // Mailtrap SMTP host
+		        props.put("mail.smtp.host", "smtp-relay.brevo.com"); // Mailtrap SMTP host
 		        props.put("mail.smtp.port", "587"); // Mailtrap port (default: 2525)
 		        props.put("mail.smtp.auth", "true");
 		        props.put("mail.smtp.starttls.enable", "true");
@@ -160,7 +160,7 @@ public class subcontractorController {
 
 		        try {
 		            Message message = new MimeMessage(session);
-		            message.setFrom(new InternetAddress("hello@demomailtrap.co")); // Change as needed
+		            message.setFrom(new InternetAddress("sitespace.com.au@gmail.com")); // Change as needed
 		            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(regobj.getContractorEmail())); // Change recipient
 		            message.setSubject("Invitation to Join "+projectName+" on SiteSpace");
 		            message.setText("Dear "+regobj.getContractorName()+",\r\n"
