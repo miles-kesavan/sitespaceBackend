@@ -5,7 +5,6 @@ com\sitespace\fileupload\slotBooking\slotBookingQueryUtil.class
 com\sitespace\common\CipherCrypto.class
 com\sitespace\common\services\BasicResultBean.class
 com\sitespace\fileupload\userMaster\userMasterQueryUtil.class
-application.properties
 com\sitespace\fileupload\usermanagement\UserDetailsServiceImpl.class
 com\sitespace\fileupload\assetmaster\assetController.class
 com\sitespace\fileupload\subcontractor\subcontractorController$1.class
