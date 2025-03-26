@@ -83,7 +83,7 @@ public class AuthController {
 		
 		
 		return ResponseEntity.ok(
-				new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(),userDetails.getRole() ));
+				new JwtResponse(jwt, userDetails.getUserId(), userDetails.getUsername(), userDetails.getEmail(),userDetails.getRole() ));
 	}
 
 	@ApiOperation(value = "Get user info by token")

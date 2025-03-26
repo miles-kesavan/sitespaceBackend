@@ -15,6 +15,7 @@ public class subcontractorBean {
 	private String contractorTrade;
 	private String contractorEmail;
 	private String contractorPhone;
+	private String contractorPass;
 	private String createdBy;
 	
 	
@@ -79,6 +80,12 @@ public class subcontractorBean {
 	}
 	public void setContractorProject(List<String> contractorProject) {
 		this.contractorProject = contractorProject;
+	}
+	public String getContractorPass() {
+		return contractorPass;
+	}
+	public void setContractorPass(String contractorPass) {
+		this.contractorPass = contractorPass;
 	}  
 
 	

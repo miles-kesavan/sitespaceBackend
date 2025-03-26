@@ -55,12 +55,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 				try {
 					JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource); 
 					
-			        Connection conn = jdbcTemplate.getDataSource().getConnection();
 
-					
-					   Array projectArray = conn.createArrayOf("VARCHAR", obj.getContractorProject().toArray());
-
-				    
 				    
 				    Integer checkUserExist=jdbcTemplate.queryForObject(subcontractorQueryUtil.checkUserExist, 
 							new Object[] {obj.getContractorEmail()},(Integer.class));  
@@ -68,9 +63,18 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 				    
 				    if(checkUserExist == 0) {
 				    	
-				    	jdbcTemplate.update(subcontractorQueryUtil.insert_subContractorsReg, projectArray, obj.getContractorName(), obj.getContractorCompany(),
+				    	
+				    	
+				    	String spaceId = jdbcTemplate.queryForObject(subcontractorQueryUtil.insert_AuthForsubContReg, new Object[]{obj.getContractorName(), obj.getContractorPass(),
+				    			 obj.getContractorEmail()}, String.class);
+				    	
+				    	
+				    	String contractorId = jdbcTemplate.queryForObject(subcontractorQueryUtil.insert_subContractorsReg, new Object[]{obj.getContractorName(), obj.getContractorCompany(),
 				    			obj.getContractorTrade(), obj.getContractorEmail(), 
-				    			obj.getContractorPhone(), obj.getCreatedBy());
+				    			obj.getContractorPhone(), obj.getCreatedBy(),spaceId}, String.class);
+				    	
+				    	jdbcTemplate.update(subcontractorQueryUtil.insert_project, contractorId, obj.getContractorProjectId());
+
 				    	
 				    	subcontractorResultBean.setSuccess(true);
 				    	subcontractorResultBean.setMessage("Contractor added successfully!");
@@ -78,8 +82,10 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 				    
 				    else {
 				    	
-				    	String updateSql = "UPDATE sub_contractors SET contractor_project = ? WHERE contractor_email = ? OR contractor_phone = ?";
-			            jdbcTemplate.update(updateSql, projectArray, obj.getContractorEmail(), obj.getContractorPhone());
+				    	String contractorId=jdbcTemplate.queryForObject(subcontractorQueryUtil.getContractorID, 
+								new Object[] {obj.getContractorEmail()},(String.class)); 
+				    	
+				    	jdbcTemplate.update(subcontractorQueryUtil.insert_project, contractorId, obj.getContractorProjectId());
 			            
 			            subcontractorResultBean.setSuccess(true);
 				    	subcontractorResultBean.setMessage("Contractor project updated successfully!");

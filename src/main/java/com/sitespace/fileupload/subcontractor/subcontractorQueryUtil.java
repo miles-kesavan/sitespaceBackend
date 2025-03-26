@@ -4,9 +4,17 @@ import java.util.ArrayList;
 
 public class subcontractorQueryUtil {
 
-	public static final String insert_subContractorsReg = "INSERT INTO sub_contractors (contractor_project, contractor_name, contractor_company,\r\n"
-			+ "contractor_trade, contractor_email, contractor_phone, created_by, created_dt)\r\n"
-			+ "VALUES (?, ?, ?, ?, ?, ?, ?, NOW())";
+	public static final String insert_subContractorsReg = "INSERT INTO sub_contractors (contractor_name, contractor_company,\r\n"
+			+ "contractor_trade, contractor_email, contractor_phone, created_by,space_id_ref, created_dt)\r\n"
+			+ "VALUES ( ?, ?, ?, ?, ?, ?, NOW())RETURNING contractor_key";
+	
+	
+	public static final String insert_project = "INSERT INTO user_project_mapping (user_id, project_id) \" +\r\n"
+			+ "             \"VALUES (?, ?)";
+	
+	
+	public static final String insert_AuthForsubContReg = "INSERT INTO auth.app_user (user_name, user_pass, user_email, user_role, is_active) \" +\r\n"
+			+ "             \"VALUES (?, ?, ?, 'contractor', true) RETURNING space_id";
 	
 	public static final String Get_emp_id = "SELECT COALESCE(exp_id) AS expId FROM new.experience_info WHERE talent_id = ?";
 	
@@ -46,6 +54,8 @@ public class subcontractorQueryUtil {
 	public static String Delete_User_Account ="delete from asset_master where asset_key = ? ";
 	
 	public static String checkUserExist = "select count(*) from sub_contractors where contractor_email =?";
+	
+	public static String getContractorID = "select contractor_key from sub_contractors where contractor_email =?";
 	
 	public static String getProjectName = "SELECT project_title FROM project_master WHERE project_key = ? LIMIT 1";
 	

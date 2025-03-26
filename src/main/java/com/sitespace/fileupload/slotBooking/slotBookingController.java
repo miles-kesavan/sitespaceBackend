@@ -87,7 +87,7 @@ public class slotBookingController {
 	}
 		//editprofiledetails individual
 		
-	@PostMapping(value = "/editSlotBookingdetails")
+	@GetMapping(value = "/editSlotBookingdetails")
 		public @ResponseBody slotBookingResultBean editslotBookingdetails(@RequestParam ("bookingKey") String bookingKey) {
 			slotBookingResultBean assetResultBean = new slotBookingResultBean();
 			try {

@@ -87,7 +87,7 @@ public class assetController {
 	}
 		//editprofiledetails individual
 		
-	@PostMapping(value = "/editAssetdetails")
+	@GetMapping(value = "/editAssetdetails")
 		public @ResponseBody assetResultBean editAssetdetails(@RequestParam ("currentUserId") String currentUserId) {
 			assetResultBean assetResultBean = new assetResultBean();
 			try {

@@ -139,40 +139,53 @@ public class subcontractorController {
 	@PostMapping(value = "/subcontractorRegMail")
 	public @ResponseBody subcontractorResultBean verificationSuiteIntimationMail(@RequestBody subcontractorBean regobj) {
 		subcontractorResultBean objbranchResultBean = new subcontractorResultBean();
-		try {
-			final String username = "sitespace@protonmail.com";
-	        final String password = "Kesavan@1542"; // Get from ProtonMail Bridge
 
-	        Properties props = new Properties();
-	        props.put("mail.smtp.host", "127.0.0.1");
-	        props.put("mail.smtp.port", "1025");
-	        props.put("mail.smtp.auth", "true");
-	        props.put("mail.smtp.starttls.enable", "true");
+		        final String username = "smtp@mailtrap.io"; // Mailtrap SMTP username
+		        final String password = "9aec33cb21d9723d154aa45933bee658"; // Mailtrap SMTP password
 
-	        Session session = Session.getInstance(props, new Authenticator() {
-	            protected PasswordAuthentication getPasswordAuthentication() {
-	                return new PasswordAuthentication(username, password);
-	            }
-	        });
+		        Properties props = new Properties();
+		        props.put("mail.smtp.host", "live.smtp.mailtrap.io"); // Mailtrap SMTP host
+		        props.put("mail.smtp.port", "587"); // Mailtrap port (default: 2525)
+		        props.put("mail.smtp.auth", "true");
+		        props.put("mail.smtp.starttls.enable", "true");
 
-	        try {
-	            Message message = new MimeMessage(session);
-	            message.setFrom(new InternetAddress(username));
-	            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("kesavan1542@gmail.com"));
-	            message.setSubject("Test Email");
-	            message.setText("Hello from Java using ProtonMail Bridge!");
+		        Session session = Session.getInstance(props, new Authenticator() {
+		            protected PasswordAuthentication getPasswordAuthentication() {
+		                return new PasswordAuthentication(username, password);
+		            }
+		        });
+		        
+			    String projectName=jdbcTemplate.queryForObject(subcontractorQueryUtil.getProjectName, 
+						new Object[] {regobj.getContractorProjectId()},(String.class));  
 
-	            Transport.send(message);
-	            System.out.println("Email Sent Successfully!");
+		        try {
+		            Message message = new MimeMessage(session);
+		            message.setFrom(new InternetAddress("hello@demomailtrap.co")); // Change as needed
+		            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sitespace.com.au@gmail.com")); // Change recipient
+		            message.setSubject("Invitation to Join "+projectName+" on SiteSpace");
+		            message.setText("Dear "+regobj.getContractorName()+",\r\n"
+		            		+ "\r\n"
+		            		+ "You have been invited to join "+projectName+" on SiteSpace.\r\n"
+		            		+ "\r\n"
+		            		+ "By joining, you can pre-book the necessary equipment and assets for the site and get approvals from the site manager in advance, ensuring a smooth and hassle-free experience.\r\n"
+		            		+ "\r\n"
+		            		+ "Click the link below to join:\r\n"
+		            		+ "\r\n"
+		            		+ "https://sitespace.vercel.app/register/"+regobj.getContractorProjectId()+"\r\n"
+		            		+ "\r\n"
+		            		+ "If you have any questions, feel free to reach out.\r\n"
+		            		+ "\r\n"
+		            		+ "Thank you,\r\n"
+		            		+ "Team SiteSpace");
 
-	        } catch (MessagingException e) {
-	            e.printStackTrace();
-	        }
-	
-		}
-		catch (Exception e) {
-            e.printStackTrace();
-        }
+		            Transport.send(message);
+		            System.out.println("Email Sent Successfully!");
+
+		        } catch (MessagingException e) {
+		            e.printStackTrace();
+		        }
+		
+
 		
 		return objbranchResultBean;
 	}

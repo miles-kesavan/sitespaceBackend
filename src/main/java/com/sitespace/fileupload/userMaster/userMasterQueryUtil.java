@@ -8,7 +8,7 @@ public class userMasterQueryUtil {
 	
 
 	public static String GETUSERDETAILS = " SELECT \r\n"
-			+ "    au.user_name AS username,\r\n"
+			+ "   au.space_id as userId, au.user_name AS username,\r\n"
 			+ "    COALESCE(au.user_mail, '') AS email,\r\n"
 			+ "    au.user_pass AS password,user_role as role\r\n"
 			+ "FROM \r\n"

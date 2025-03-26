@@ -100,7 +100,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(slotBookingDaolmpl.
 	        // Convert List<String> to a comma-separated string if needed
 	        String bookedAssetsStr = String.join(",", booking.getBookedAssets());
 	        
-	  	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	  	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 		    Date bookingTimeDt = new Date(sdf.parse(booking.getBookingTimeDt()).getTime());
 
 	        int count = jdbcTemplate.update(
