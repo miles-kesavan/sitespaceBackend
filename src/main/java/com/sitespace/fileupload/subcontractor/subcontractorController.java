@@ -161,7 +161,7 @@ public class subcontractorController {
 		        try {
 		            Message message = new MimeMessage(session);
 		            message.setFrom(new InternetAddress("hello@demomailtrap.co")); // Change as needed
-		            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("sitespace.com.au@gmail.com")); // Change recipient
+		            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(regobj.getContractorEmail())); // Change recipient
 		            message.setSubject("Invitation to Join "+projectName+" on SiteSpace");
 		            message.setText("Dear "+regobj.getContractorName()+",\r\n"
 		            		+ "\r\n"
