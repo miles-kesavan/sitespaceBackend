@@ -53,7 +53,8 @@ public class siteProjectQueryUtil {
 	}
 	
 	public static String get_subcontractor_list(String currentUserId) {
-		String query="select contractor_key as id ,contractor_name as text from sub_contractors where space_id_ref='"+currentUserId+"'";
+		String query="select contractor_key as contractorkey,contractor_name as contractorName,contractor_company as contractorCompany,contractor_trade as contractorTrade,\r\n"
+				+ "contractor_email as contractorEmail,contractor_phone as contractorPhone from sub_contractors where space_id_ref='"+currentUserId+"'";
 			
 		return query;
 	}

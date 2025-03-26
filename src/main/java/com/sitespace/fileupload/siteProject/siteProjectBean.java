@@ -4,7 +4,7 @@ import java.util.List;
 
 public class siteProjectBean {
 
-	private String name;
+	private String contractorkey;
 	private String emailId;
 	
     private List<String> contractorProject;  // Array of project IDs
@@ -50,11 +50,11 @@ public class siteProjectBean {
 	public void setContractorPhone(String contractorPhone) {
 		this.contractorPhone = contractorPhone;
 	}
-	public String getName() {
-		return name;
+	public String getContractorkey() {
+		return contractorkey;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setContractorkey(String contractorkey) {
+		this.contractorkey = contractorkey;
 	}
 	public String getEmailId() {
 		return emailId;

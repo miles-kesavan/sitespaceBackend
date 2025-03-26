@@ -197,7 +197,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(siteProjectDaolmpl.
 			
 			@Override
 			public siteProjectResultBean getSubcontractorList(String currentUserId) {
-				List<dropdownBean> subcontractorList = new ArrayList<dropdownBean>();
+				List<siteProjectBean> subcontractorList = new ArrayList<siteProjectBean>();
 				siteProjectResultBean siteProjectResultBean = new siteProjectResultBean();
 				try {
 					JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -205,7 +205,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(siteProjectDaolmpl.
 					
 					subcontractorList = jdbcTemplate.query(siteProjectQueryUtil.get_subcontractor_list(currentUserId), 
                             new Object[] {}, 
-                            new BeanPropertyRowMapper<dropdownBean>(dropdownBean.class));
+                            new BeanPropertyRowMapper<siteProjectBean>(siteProjectBean.class));
 
 					if (subcontractorList.isEmpty()) { 
 						siteProjectResultBean.setSuccess(false);
