@@ -54,6 +54,15 @@ public class siteProjectServicelmpl  implements siteProjectService {
 			
 			
 			@Override
+			public siteProjectResultBean getSubcontractorList(String currentUserId) {
+				// TODO Auto-generated method stub
+				return siteProjectDao.getSubcontractorList(currentUserId);
+			}
+			
+			
+			
+			
+			@Override
 			public siteProjectResultBean deleteAseet(siteProjectBean delete) {
 				// TODO Auto-generated method stub
 				return siteProjectDao.deleteAseet(delete);

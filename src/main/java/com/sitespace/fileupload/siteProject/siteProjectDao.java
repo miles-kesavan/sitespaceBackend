@@ -17,6 +17,8 @@ public interface siteProjectDao {
 
 	public siteProjectResultBean getProjectList(String currentUserId);
 	
+	public siteProjectResultBean getSubcontractorList(String currentUserId);
+	
 	public siteProjectResultBean deleteAseet(siteProjectBean delete);
 
 

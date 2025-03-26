@@ -14,9 +14,19 @@ public List<siteProjectBean> assetlist;
 
 public List<dropdownBean> projectlist;
 
+public List<dropdownBean> subcontractorList;
 
 
 
+
+
+
+public List<dropdownBean> getSubcontractorList() {
+	return subcontractorList;
+}
+public void setSubcontractorList(List<dropdownBean> subcontractorList) {
+	this.subcontractorList = subcontractorList;
+}
 
 public List<dropdownBean> getProjectlist() {
 	return projectlist;

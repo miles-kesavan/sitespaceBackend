@@ -193,6 +193,35 @@ private final static Logger LOGGER = LoggerFactory.getLogger(siteProjectDaolmpl.
 
 				return siteProjectResultBean;
 			}
+			
+			
+			@Override
+			public siteProjectResultBean getSubcontractorList(String currentUserId) {
+				List<dropdownBean> subcontractorList = new ArrayList<dropdownBean>();
+				siteProjectResultBean siteProjectResultBean = new siteProjectResultBean();
+				try {
+					JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+					
+					subcontractorList = jdbcTemplate.query(siteProjectQueryUtil.get_subcontractor_list(currentUserId), 
+                            new Object[] {}, 
+                            new BeanPropertyRowMapper<dropdownBean>(dropdownBean.class));
+
+					if (subcontractorList.isEmpty()) { 
+						siteProjectResultBean.setSuccess(false);
+						siteProjectResultBean.setMessage("No subcontractors found for this user.");
+						} else {
+						siteProjectResultBean.setSubcontractorList(subcontractorList);
+						siteProjectResultBean.setSuccess(true);
+						}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				return siteProjectResultBean;
+			}
+			
 
 			
 			@Override

@@ -77,6 +77,19 @@ public class siteProjectController {
 		return siteProjectResultBean;
 	}
 	
+	@GetMapping("/getSubcontractorList")
+	public @ResponseBody siteProjectResultBean getSubcontractorList(@RequestParam("currentUserId")String currentUserId) {
+		siteProjectResultBean siteProjectResultBean = new siteProjectResultBean();
+
+		try {
+			siteProjectResultBean = siteProjectService.getSubcontractorList(currentUserId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return siteProjectResultBean;
+	}
+	
 //
 //	
 //	//UpdateSkill

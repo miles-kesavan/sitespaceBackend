@@ -51,6 +51,13 @@ public class siteProjectQueryUtil {
 			
 		return query;
 	}
+	
+	public static String get_subcontractor_list(String currentUserId) {
+		String query="select contractor_key as id ,contractor_name as text from sub_contractors where space_id_ref='"+currentUserId+"'";
+			
+		return query;
+	}
+		
 		
 	
 	public static String Delete_User_Account ="delete from asset_master where asset_key = ? ";

@@ -18,6 +18,8 @@ public interface siteProjectService {
 
 	public siteProjectResultBean getProjectList(String currentUserId);
 	
+	public siteProjectResultBean getSubcontractorList(String currentUserId);
+	
 	public siteProjectResultBean editAssetdetails(String currentUserId);
 	
     siteProjectResultBean deleteAseet(siteProjectBean obj);
