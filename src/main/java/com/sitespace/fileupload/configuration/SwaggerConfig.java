@@ -27,43 +27,34 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 public class SwaggerConfig {
 
-	@Bean
-	public Docket api() {
-		//ParameterBuilder ObjParameterBuilder = new ParameterBuilder();
-		//ObjParameterBuilder.name("Authorization").parameterType("header").required(true).build();
-		//List<Parameter> aParameters = new ArrayList<Parameter>();
-		//aParameters.add(ObjParameterBuilder.build());
+	   public static final String AUTHORIZATION_HEADER = "Authorization";
 
-		return new Docket(DocumentationType.SWAGGER_2).securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey())).select().apis(RequestHandlerSelectors.any())
-				// .apis(Predicates.not(RequestHandlerSelectors.basePackage("com.paragon.visitorchek")))
-				.paths(PathSelectors.any())
-				// .paths(PathSelectors.ant("/swagger2"))
-				.build()
-				.apiInfo(apiInfo());
-		// .globalOperationParameters(aParameters);
+	    @Bean
+	    public Docket api() {
+	        return new Docket(DocumentationType.SWAGGER_2)
+	                .select()
+	                .apis(RequestHandlerSelectors.basePackage("com.sitespace.fileupload"))
+	                .paths(PathSelectors.any())
+	                .build()
+	                .securityContexts(Arrays.asList(securityContext()))
+	                .securitySchemes(Arrays.asList(apiKey()));
+	    }
 
-	}
+	    private ApiKey apiKey() {
+	        return new ApiKey("JWT", AUTHORIZATION_HEADER, "header");
+	    }
 
-	private ApiKey apiKey() {
-		return new ApiKey("Access Token", "Authorization", "header");
-	}
+	    private SecurityContext securityContext() {
+	        return SecurityContext.builder()
+	                .securityReferences(defaultAuth())
+	                .build();
+	    }
 
-	private SecurityContext securityContext() { 
-	    return SecurityContext.builder().securityReferences(defaultAuth()).build(); 
-	} 
-
-//	private List<SecurityReference> defaultAuth() { 
-//	    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything"); 
-//	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1]; 
-//	    authorizationScopes[0] = authorizationScope; 
-//	    return Arrays.asList(new SecurityReference("Access Token", authorizationScopes)); 
-//	}
-	
-	private List<SecurityReference> defaultAuth() {
-        AuthorizationScope authorizationScope =
-            new AuthorizationScope("global", "accessEverything");
-        return List.of(new SecurityReference("JWT", new AuthorizationScope[] {authorizationScope}));
-    }
+	    private List<SecurityReference> defaultAuth() {
+	        AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything");
+	        AuthorizationScope[] authorizationScopes = new AuthorizationScope[] { authorizationScope };
+	        return Arrays.asList(new SecurityReference("JWT", authorizationScopes));
+	    }
 	
 	@Bean
 	public WebMvcConfigurer webMvcConfigurer() {
