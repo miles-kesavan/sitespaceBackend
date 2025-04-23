@@ -6,15 +6,13 @@ public class subcontractorQueryUtil {
 
 	public static final String insert_subContractorsReg = "INSERT INTO sub_contractors (contractor_name, contractor_company,\r\n"
 			+ "contractor_trade, contractor_email, contractor_phone, created_by,space_id_ref, created_dt)\r\n"
-			+ "VALUES ( ?, ?, ?, ?, ?, ?, NOW())RETURNING contractor_key";
+			+ "VALUES ( ?,?, ?, ?, ?, ?, ?, NOW())RETURNING contractor_key";
 	
 	
-	public static final String insert_project = "INSERT INTO user_project_mapping (user_id, project_id) \" +\r\n"
-			+ "             \"VALUES (?, ?)";
+	public static final String insert_project = "INSERT INTO user_project_mapping (user_id, project_id) VALUES (?, ?)";
 	
 	
-	public static final String insert_AuthForsubContReg = "INSERT INTO auth.app_user (user_name, user_pass, user_email, user_role, is_active) \" +\r\n"
-			+ "             \"VALUES (?, ?, ?, 'contractor', true) RETURNING space_id";
+	public static final String insert_AuthForsubContReg = "INSERT INTO auth.app_user (user_name, user_pass, user_mail, user_role, is_active)VALUES (?, ?, ?, 'contractor', true) RETURNING space_id";
 	
 	public static final String Get_emp_id = "SELECT COALESCE(exp_id) AS expId FROM new.experience_info WHERE talent_id = ?";
 	

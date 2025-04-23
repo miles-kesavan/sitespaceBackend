@@ -218,6 +218,60 @@ private final static Logger LOGGER = LoggerFactory.getLogger(slotBookingDaolmpl.
 			  }
 
 
+				// connectionList
+			  @Override
+			  public slotBookingResultBean getslotBookingListProjectBased(String projectId) {
+			      List<slotBookingBean> bookingList = new ArrayList<>();
+			      slotBookingResultBean bookingResultBean = new slotBookingResultBean();
+
+			      try {
+			          JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+			          // Execute query and get list of maps
+			          List<Map<String, Object>> rows = jdbcTemplate.queryForList(
+			              slotBookingQueryUtil.SLOT_BOOKING_Project_Based_LIST(projectId), 
+			              new Object[]{}
+			          );
+
+			          for (Map<String, Object> row : rows) {
+			              slotBookingBean booking = new slotBookingBean();
+			              booking.setBookingKey((String) row.get("booking_key"));
+			              booking.setBookingProject((String) row.get("booking_project"));
+			              booking.setBookingTitle((String) row.get("booking_title"));
+			              booking.setBookingFor((String) row.get("booking_for"));
+			              booking.setBookingStatus((String) row.get("booking_status"));
+			              booking.setBookingTimeDt(((String) row.get("booking_timedt")));
+			              booking.setBookingDurationMins((Integer) row.get("booking_duration_mins"));
+			              booking.setBookingDescription((String) row.get("booking_description"));
+			              booking.setBookingNotes((String) row.get("booking_notes"));
+			              booking.setBookingCreatedBy((String) row.get("booking_created_by"));
+			            
+
+			              // Handling booked_assets (PostgreSQL VARCHAR[] or comma-separated string)
+			              Object bookedAssetsObj = row.get("booked_assets");
+			              if (bookedAssetsObj instanceof Array) {
+			                  String[] assets = (String[]) ((Array) bookedAssetsObj).getArray();
+			                  booking.setBookedAssets(Arrays.asList(assets));
+			              } else if (bookedAssetsObj instanceof String) {
+			                  booking.setBookedAssets(Arrays.asList(((String) bookedAssetsObj).split(",")));
+			              } else {
+			                  booking.setBookedAssets(new ArrayList<>());
+			              }
+
+			              bookingList.add(booking);
+			          }
+
+			          bookingResultBean.setBookingList(bookingList);
+			          bookingResultBean.setSuccess(true);
+
+			      } catch (Exception e) {
+			          e.printStackTrace();
+			          bookingResultBean.setSuccess(false);
+			          bookingResultBean.setMessage("Error retrieving slot booking list.");
+			      }
+
+			      return bookingResultBean;
+			  }
 
 			
 			@Override

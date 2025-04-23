@@ -52,12 +52,18 @@ public class SwaggerConfig {
 	    return SecurityContext.builder().securityReferences(defaultAuth()).build(); 
 	} 
 
-	private List<SecurityReference> defaultAuth() { 
-	    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything"); 
-	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1]; 
-	    authorizationScopes[0] = authorizationScope; 
-	    return Arrays.asList(new SecurityReference("Access Token", authorizationScopes)); 
-	}
+//	private List<SecurityReference> defaultAuth() { 
+//	    AuthorizationScope authorizationScope = new AuthorizationScope("global", "accessEverything"); 
+//	    AuthorizationScope[] authorizationScopes = new AuthorizationScope[1]; 
+//	    authorizationScopes[0] = authorizationScope; 
+//	    return Arrays.asList(new SecurityReference("Access Token", authorizationScopes)); 
+//	}
+	
+	private List<SecurityReference> defaultAuth() {
+        AuthorizationScope authorizationScope =
+            new AuthorizationScope("global", "accessEverything");
+        return List.of(new SecurityReference("JWT", new AuthorizationScope[] {authorizationScope}));
+    }
 	
 	@Bean
 	public WebMvcConfigurer webMvcConfigurer() {

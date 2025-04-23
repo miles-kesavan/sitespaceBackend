@@ -73,7 +73,7 @@ private final static Logger LOGGER = LoggerFactory.getLogger(subcontractorDaolmp
 				    			obj.getContractorTrade(), obj.getContractorEmail(), 
 				    			obj.getContractorPhone(), obj.getCreatedBy(),spaceId}, String.class);
 				    	
-				    	jdbcTemplate.update(subcontractorQueryUtil.insert_project, contractorId, obj.getContractorProjectId());
+				    	jdbcTemplate.update(subcontractorQueryUtil.insert_project, spaceId, obj.getContractorProjectId());
 
 				    	
 				    	subcontractorResultBean.setSuccess(true);

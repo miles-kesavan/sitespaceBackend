@@ -66,6 +66,20 @@ public class slotBookingController {
 		return assetResultBean;
 	}
 	
+	
+	@GetMapping("/getslotBookingListProjectBased")
+	public @ResponseBody slotBookingResultBean getslotBookingListProjectBased(@RequestParam("projectId")String projectId) {
+		slotBookingResultBean assetResultBean = new slotBookingResultBean();
+
+		try {
+			assetResultBean = slotBookingService.getslotBookingListProjectBased(projectId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return assetResultBean;
+	}
+	
 
 	
 	//UpdateSkill

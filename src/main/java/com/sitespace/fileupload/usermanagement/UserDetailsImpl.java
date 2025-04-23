@@ -25,6 +25,8 @@ public class UserDetailsImpl implements UserDetails {
 	private Integer creditPoint;
 	
 	private String role;
+	
+	private int tokenVersion = 0;
 
 
 	public Integer getCreditPoint() {
@@ -135,6 +137,14 @@ public class UserDetailsImpl implements UserDetails {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public int getTokenVersion() {
+		return tokenVersion;
+	}
+
+	public void setTokenVersion(int tokenVersion) {
+		this.tokenVersion = tokenVersion;
 	}
 	
 

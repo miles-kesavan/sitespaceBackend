@@ -49,6 +49,7 @@ public class AuthController {
 
 	@Autowired
 	RoleRepository roleRepository;
+	
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -142,5 +143,13 @@ public class AuthController {
 //		userRepository.save(user);
 
 		return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+	}
+	
+	
+	@ApiOperation(value = "Sign Out")
+	@PostMapping("/signout")
+	public ResponseEntity<?> logoutUser() {
+	    // On client side, remove the token. Here we just return a success response.
+	    return ResponseEntity.ok(new MessageResponse("User signed out successfully!"));
 	}
 }

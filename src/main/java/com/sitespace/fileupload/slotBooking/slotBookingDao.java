@@ -19,7 +19,9 @@ public interface slotBookingDao {
 	
 	public slotBookingResultBean deleteslotBooking(slotBookingBean delete);
 
+	public slotBookingResultBean getslotBookingListProjectBased(String projectId);
 
+	
 	
 	
 

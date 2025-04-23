@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 //import sun.misc.BASE64Decoder;
 @Api(tags="SiteProject Operation", description="Manages SiteProject Operation")
 @RestController
-@RequestMapping("/api/auth/siteProject")
+@RequestMapping("/api/siteProject")
 public class siteProjectController {
 	
 	@Autowired

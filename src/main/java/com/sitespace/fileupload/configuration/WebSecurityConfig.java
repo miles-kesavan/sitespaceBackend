@@ -54,15 +54,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+//				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+//				.antMatchers("/api/auth/**").permitAll().antMatchers("/v2/api-docs", "/configuration/ui",
+//						"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
+//				.permitAll()
+//				.antMatchers("/"+filesExportServerPath+"/**").permitAll().anyRequest().authenticated();
+//
+//		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//	}
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-				.antMatchers("/api/auth/**").permitAll().antMatchers("/v2/api-docs", "/configuration/ui",
-						"/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**")
-				.permitAll()
-				.antMatchers("/"+filesExportServerPath+"/**").permitAll().anyRequest().authenticated();
+	    http.cors().and().csrf().disable()
+	        .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+	        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+	        .authorizeRequests()
+	        .antMatchers("/api/auth/**").permitAll() // <- Only auth APIs are public
+	        .antMatchers("/v2/api-docs", "/configuration/ui","/swagger-resources/**","/configuration/security","/swagger-ui.html", "/webjars/**").permitAll() // Swagger is public
+	        .antMatchers("/"+filesExportServerPath+"/**").permitAll()
+	        .anyRequest().authenticated(); // <- Everything else requires authentication
 
-		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+	    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }

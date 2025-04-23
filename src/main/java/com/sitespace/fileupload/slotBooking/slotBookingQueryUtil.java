@@ -87,6 +87,34 @@ public class slotBookingQueryUtil {
 	}
 	
 	
+	public static String SLOT_BOOKING_Project_Based_LIST(String projectId) {
+		String query="SELECT \r\n"
+				+ "    sb.booking_key,\r\n"
+				+ "    sb.booking_title,\r\n"
+				+ "    CONCAT(pm.project_key, ' - ', pm.project_title) AS booking_project, \r\n"
+				+ "    sb.booking_for,\r\n"
+				+ "    ARRAY_AGG(ba.asset_key || ' - ' || am.asset_title) AS booked_assets, \r\n"
+				+ "    sb.booking_status,\r\n"
+				+ "    TO_CHAR(sb.booking_timedt, 'YYYY-MM-DD HH24:MI:SS') AS booking_timedt,\r\n"
+				+ "    sb.booking_duration_mins,\r\n"
+				+ "    sb.booking_description,\r\n"
+				+ "    sb.booking_notes,\r\n"
+				+ "    sb.booking_created_by\r\n"
+				+ "FROM slot_booking sb\r\n"
+				+ "LEFT JOIN project_master pm ON sb.booking_project = pm.project_key\r\n"
+				+ "LEFT JOIN LATERAL unnest(sb.booked_assets) AS ba(asset_key) ON TRUE\r\n"
+				+ "LEFT JOIN asset_master am ON ba.asset_key = am.asset_key\r\n"
+				+ "WHERE sb.booking_project = '"+projectId+"'\r\n"
+				+ "GROUP BY \r\n"
+				+ "    sb.booking_key, sb.booking_project, pm.project_key, pm.project_title,\r\n"
+				+ "    sb.booking_title, sb.booking_for, sb.booking_status,\r\n"
+				+ "    sb.booking_timedt, sb.booking_duration_mins,\r\n"
+				+ "    sb.booking_description, sb.booking_notes, sb.booking_created_by";
+			
+		return query;
+	}
+	
+	
 	public static String Delete_User_Account ="delete from asset_master where asset_key = ? ";
 	
 	public static final String get_profile_images = "Select nu.profile_img as uploadImg,prev_prof_img1 as uploadImg1,prev_prof_img2 as uploadImg2 from new.user_details nu  \r\n"
