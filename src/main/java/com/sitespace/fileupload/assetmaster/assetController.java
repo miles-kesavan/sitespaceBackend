@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 //import sun.misc.BASE64Decoder;
 @Api(tags="Asset Operation", description="Manages Asset Operation")
 @RestController
-@RequestMapping("/api/auth/Asset")
+@RequestMapping("/api/Asset")
 public class assetController {
 	
 	@Autowired

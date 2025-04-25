@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
 //import sun.misc.BASE64Decoder;
 @Api(tags="slotBooking Operation", description="Manages slotBooking Operation")
 @RestController
-@RequestMapping("/api/auth/slotBooking")
+@RequestMapping("/api/slotBooking")
 public class slotBookingController {
 	
 	@Autowired

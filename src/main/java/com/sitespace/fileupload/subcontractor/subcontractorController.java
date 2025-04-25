@@ -30,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 //import sun.misc.BASE64Decoder;
 @Api(tags="Subcontractor Operation", description="Manages Asset Operation")
 @RestController
-@RequestMapping("/api/auth/subContractor")
+@RequestMapping("/api/subContractor")
 public class subcontractorController {
 	
 	@Autowired
