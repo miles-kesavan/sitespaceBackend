@@ -140,50 +140,56 @@ public class subcontractorController {
 	public @ResponseBody subcontractorResultBean verificationSuiteIntimationMail(@RequestBody subcontractorBean regobj) {
 		subcontractorResultBean objbranchResultBean = new subcontractorResultBean();
 
-		        final String username = "88eaa1001@smtp-brevo.com"; // Mailtrap SMTP username
-		        final String password = "52PIxEyCGLk6sm7J"; // Mailtrap SMTP password
+		final String username = "sitespace.com.au@gmail.com"; // your Gmail
+		final String password = "rdgy etgo icrd yosv";    // generated App Password from Google
 
-		        Properties props = new Properties();
-		        props.put("mail.smtp.host", "smtp-relay.brevo.com"); // Mailtrap SMTP host
-		        props.put("mail.smtp.port", "587"); // Mailtrap port (default: 2525)
-		        props.put("mail.smtp.auth", "true");
-		        props.put("mail.smtp.starttls.enable", "true");
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.starttls.enable", "true");
 
-		        Session session = Session.getInstance(props, new Authenticator() {
-		            protected PasswordAuthentication getPasswordAuthentication() {
-		                return new PasswordAuthentication(username, password);
-		            }
-		        });
-		        
-			    String projectName=jdbcTemplate.queryForObject(subcontractorQueryUtil.getProjectName, 
-						new Object[] {regobj.getContractorProjectId()},(String.class));  
+		Session session = Session.getInstance(props, new Authenticator() {
+		    protected PasswordAuthentication getPasswordAuthentication() {
+		        return new PasswordAuthentication(username, password);
+		    }
+		});
 
-		        try {
-		            Message message = new MimeMessage(session);
-		            message.setFrom(new InternetAddress("sitespace.com.au@gmail.com")); // Change as needed
-		            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(regobj.getContractorEmail())); // Change recipient
-		            message.setSubject("Invitation to Join "+projectName+" on SiteSpace");
-		            message.setText("Dear "+regobj.getContractorName()+",\r\n"
-		            		+ "\r\n"
-		            		+ "You have been invited to join "+projectName+" on SiteSpace.\r\n"
-		            		+ "\r\n"
-		            		+ "By joining, you can pre-book the necessary equipment and assets for the site and get approvals from the site manager in advance, ensuring a smooth and hassle-free experience.\r\n"
-		            		+ "\r\n"
-		            		+ "Click the link below to join:\r\n"
-		            		+ "\r\n"
-		            		+ "https://sitespace.vercel.app/register/"+regobj.getContractorProjectId()+"\r\n"
-		            		+ "\r\n"
-		            		+ "If you have any questions, feel free to reach out.\r\n"
-		            		+ "\r\n"
-		            		+ "Thank you,\r\n"
-		            		+ "Team SiteSpace");
+		String projectName = jdbcTemplate.queryForObject(
+		    subcontractorQueryUtil.getProjectName,
+		    new Object[] { regobj.getContractorProjectId() },
+		    String.class
+		);
 
-		            Transport.send(message);
-		            System.out.println("Email Sent Successfully!");
+		try {
+		    Message message = new MimeMessage(session);
+		    message.setFrom(new InternetAddress("sitespace.com.au@gmail.com")); // your Gmail again
+		    message.setRecipients(
+		        Message.RecipientType.TO,
+		        InternetAddress.parse(regobj.getContractorEmail())
+		    );
+		    message.setSubject("Invitation to Join " + projectName + " on SiteSpace");
 
-		        } catch (MessagingException e) {
-		            e.printStackTrace();
-		        }
+		    message.setText(
+		        "Dear " + regobj.getContractorName() + ",\r\n\r\n" +
+		        "You have been invited to join " + projectName + " on SiteSpace.\r\n\r\n" +
+		        "By joining, you can pre-book the necessary equipment and assets for the site and get approvals from the site manager in advance, ensuring a smooth and hassle-free experience.\r\n\r\n" +
+		        "Click the link below to join:\r\n" +
+		        "https://sitespace.vercel.app/register/" + regobj.getContractorProjectId() + "\r\n\r\n" +
+		        "If you have any questions, feel free to reach out.\r\n\r\n" +
+		        "Thank you,\r\n" +
+		        "Team SiteSpace"
+		    );
+
+		    Transport.send(message);
+		    System.out.println("Email Sent Successfully!");
+		    objbranchResultBean.setSuccess(true);
+		    objbranchResultBean.setMessage("Email Sent Successfully!");
+		} catch (MessagingException e) {
+		    e.printStackTrace();
+		    objbranchResultBean.setSuccess(false);
+		    objbranchResultBean.setMessage("Please Try Again Later");
+		}
 		
 
 		
